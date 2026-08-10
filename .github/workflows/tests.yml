@@ -16,7 +16,7 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ macos-26, macos-15-intel ]
+        os: [ macos-26 ]
         include:
           - os: ubuntu-latest
             container:
@@ -60,7 +60,7 @@ jobs:
           echo "::add-mask::${base64_token}"
           echo "token=${base64_token}" >> "${GITHUB_OUTPUT}"
 
-      - run: brew test-bot --only-formulae --root-url=ghcr.io/v2/blue-panels/tap
+      - run: brew test-bot --only-formulae --root-url=https://ghcr.io/v2/blue-panels/tap
         if: github.event_name == 'pull_request'
         env:
           HOMEBREW_DOCKER_REGISTRY_TOKEN: ${{ steps.base64-encode.outputs.token }}
