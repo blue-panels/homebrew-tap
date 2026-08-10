@@ -39,6 +39,12 @@ class Mc6 < Formula
 
     system "./configure", *args, *std_configure_args
     system "make", "install"
+
+    # configure writes the tools it found into the syntax file, and under
+    # Homebrew those are the shims rather than the real binaries.
+    inreplace share/"mc/syntax/Syntax" do |s|
+      s.gsub! Superenv.shims_path.to_s, "/usr/bin"
+    end
   end
 
   test do
