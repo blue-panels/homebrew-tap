@@ -19,7 +19,6 @@ class Mc6 < Formula
   depends_on "mongo-c-driver"
   depends_on "openssl@3"
   depends_on "s-lang"
-  depends_on "samba"
 
   on_macos do
     depends_on "gettext"
@@ -28,13 +27,13 @@ class Mc6 < Formula
   conflicts_with "midnight-commander", "minio-mc", because: "both install an `mc` binary"
 
   def install
-    # The two heavy plugins are pinned to yes rather than left at auto: a
-    # missing library must fail the build, not drop a plugin from the bottle.
+    # Both switches are explicit: auto would follow whatever happens to be on
+    # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
     args = %w[
       --with-screen=slang
       --enable-vfs-sftp
       --enable-mcterm=yes
-      --enable-panel-plugin-samba=yes
+      --enable-panel-plugin-samba=no
       --enable-panel-plugin-mongo=yes
     ]
 
