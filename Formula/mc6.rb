@@ -10,6 +10,12 @@ class Mc6 < Formula
     strategy :github_latest
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/blue-panels/tap"
+    rebuild 1
+    sha256 arm64_tahoe: "41d45237eb137b1bcb45135de604f46569c991b4dd9570150f4cd64e162973e6"
+  end
+
   depends_on "pkgconf" => :build
 
   depends_on "glib"
