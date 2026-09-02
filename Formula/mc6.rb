@@ -12,6 +12,7 @@ class Mc6 < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/blue-panels/tap"
+    sha256 arm64_tahoe: "9f96a9ed0b860a69b9f11aabf340b423244099e8da0bcf07c54ef4381da4e51d"
   end
 
   depends_on "pkgconf" => :build
