@@ -1,8 +1,8 @@
 class Mc6 < Formula
   desc "Terminal file manager, a Midnight Commander fork with panel plugins"
   homepage "https://github.com/ilia-maslakov/mcdev"
-  url "https://github.com/ilia-maslakov/mcdev/releases/download/v6.0.3/mc6-6.0.3.tar.gz"
-  sha256 "965191555fa2e225adc62096ee7f51fc355f7842e8e1afbe90abb8b49aad845a"
+  url "https://github.com/ilia-maslakov/mcdev/releases/download/v6.0.4/mc6-6.0.4.tar.gz"
+  sha256 "b4726802405b7adb1c36330a36dc13043bf3b625fe6920b0cafb7d658bdcabd2"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -12,8 +12,6 @@ class Mc6 < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/blue-panels/tap"
-    rebuild 1
-    sha256 arm64_tahoe: "41d45237eb137b1bcb45135de604f46569c991b4dd9570150f4cd64e162973e6"
   end
 
   depends_on "pkgconf" => :build
