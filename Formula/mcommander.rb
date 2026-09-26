@@ -1,18 +1,13 @@
-class Mc6 < Formula
-  desc "Terminal file manager, a Midnight Commander fork with panel plugins"
-  homepage "https://github.com/ilia-maslakov/mcdev"
-  url "https://github.com/ilia-maslakov/mcdev/releases/download/v6.0.4/mc6-6.0.4.tar.gz"
-  sha256 "b4726802405b7adb1c36330a36dc13043bf3b625fe6920b0cafb7d658bdcabd2"
+class Mcommander < Formula
+  desc "Twin-panel terminal file manager with panel plugins"
+  homepage "https://blue-panels.github.io/mcommander/"
+  url "https://github.com/blue-panels/mcommander/releases/download/v6.1.0/mcommander-6.1.0.tar.gz"
+  sha256 "32fa33be816f9bb40705068ae7b468c2ad640dead8da378a878656562d59fd88"
   license "GPL-3.0-or-later"
 
   livecheck do
     url :stable
     strategy :github_latest
-  end
-
-  bottle do
-    root_url "https://ghcr.io/v2/blue-panels/tap"
-    sha256 arm64_tahoe: "9f96a9ed0b860a69b9f11aabf340b423244099e8da0bcf07c54ef4381da4e51d"
   end
 
   depends_on "pkgconf" => :build
@@ -29,15 +24,12 @@ class Mc6 < Formula
     depends_on "gettext"
   end
 
-  conflicts_with "midnight-commander", "minio-mc", because: "both install an `mc` binary"
-
   def install
     # Both switches are explicit: auto would follow whatever happens to be on
     # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
     args = %w[
       --with-screen=slang
-      --enable-vfs-sftp
-      --enable-mcterm=yes
+      --enable-panel-plugin-sftp=yes
       --enable-panel-plugin-samba=no
       --enable-panel-plugin-mongo=yes
     ]
@@ -47,14 +39,12 @@ class Mc6 < Formula
 
     # configure writes the tools it found into the syntax file, and under
     # Homebrew those are the shims rather than the real binaries.
-    inreplace share/"mc/syntax/Syntax" do |s|
+    inreplace share/"mcommander/syntax/Syntax" do |s|
       s.gsub! Superenv.shims_path.to_s, "/usr/bin"
     end
   end
 
   test do
-    # mc sets its terminal up before it gets to printing a version, and the
-    # test environment has no TERM.
-    assert_match version.to_s, with_env(TERM: "xterm") { shell_output("#{bin}/mc --version") }
+    assert_match version.to_s, shell_output("#{bin}/mcommander --version")
   end
 end
