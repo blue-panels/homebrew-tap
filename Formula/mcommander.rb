@@ -10,6 +10,13 @@ class Mcommander < Formula
     strategy :github_latest
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/blue-panels/tap"
+    rebuild 1
+    sha256 arm64_tahoe:  "f6e15588c283d373d5ffa1cb43b9e4e6ce537f2f41c471544549b03c678a89e6"
+    sha256 x86_64_linux: "70e5f0e91418fd07f497591b2892d81e5b2ceffeefe48ad0fac3d14468987a54"
+  end
+
   depends_on "pkgconf" => :build
 
   depends_on "glib"
