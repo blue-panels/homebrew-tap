@@ -20,6 +20,8 @@ class Mcommander < Formula
   depends_on "openssl@3"
   depends_on "s-lang"
 
+  uses_from_macos "sqlite"
+
   on_macos do
     depends_on "gettext"
   end
@@ -28,6 +30,7 @@ class Mcommander < Formula
   # so msgfmt is needed at build time; glibc provides libintl itself.
   on_linux do
     depends_on "gettext" => :build
+    depends_on "zlib-ng-compat"
   end
 
   def install
@@ -46,7 +49,7 @@ class Mcommander < Formula
     # configure writes the tools it found into the syntax file, and under
     # Homebrew on macOS those are the shims rather than the real binaries.
     # On Linux it finds no shims there, so nothing to replace is no error.
-    inreplace share/"mcommander/syntax/Syntax", Superenv.shims_path.to_s, "/usr/bin",
+    inreplace pkgshare/"syntax/Syntax", Superenv.shims_path.to_s, "/usr/bin",
               audit_result: false
   end
 
