@@ -24,6 +24,12 @@ class Mcommander < Formula
     depends_on "gettext"
   end
 
+  # The release archive carries the po files, not the catalogs built from them,
+  # so msgfmt is needed at build time; glibc provides libintl itself.
+  on_linux do
+    depends_on "gettext" => :build
+  end
+
   def install
     # Both switches are explicit: auto would follow whatever happens to be on
     # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
