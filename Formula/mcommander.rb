@@ -44,10 +44,10 @@ class Mcommander < Formula
     system "make", "install"
 
     # configure writes the tools it found into the syntax file, and under
-    # Homebrew those are the shims rather than the real binaries.
-    inreplace share/"mcommander/syntax/Syntax" do |s|
-      s.gsub! Superenv.shims_path.to_s, "/usr/bin"
-    end
+    # Homebrew on macOS those are the shims rather than the real binaries.
+    # On Linux it finds no shims there, so nothing to replace is no error.
+    inreplace share/"mcommander/syntax/Syntax", Superenv.shims_path.to_s, "/usr/bin",
+              audit_result: false
   end
 
   test do
