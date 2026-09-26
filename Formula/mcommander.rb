@@ -16,6 +16,7 @@ class Mcommander < Formula
   depends_on "libarchive"
   depends_on "libmagic"
   depends_on "libssh2"
+  depends_on "lua"
   depends_on "mongo-c-driver"
   depends_on "openssl@3"
   depends_on "s-lang"
@@ -38,6 +39,7 @@ class Mcommander < Formula
     # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
     args = %w[
       --with-screen=slang
+      --enable-lua-plugin=yes
       --enable-panel-plugin-sftp=yes
       --enable-panel-plugin-samba=no
       --enable-panel-plugin-mongo=yes
