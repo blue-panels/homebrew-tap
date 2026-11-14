@@ -1,12 +1,17 @@
 # Blue Panels Tap
 
-Homebrew formulae for [M-Commander](https://github.com/blue-panels/mcommander),
-a twin-panel terminal file manager with panel plugins, based on GNU Midnight
-Commander.
+Homebrew formulae for:
+
+- [M-Commander](https://github.com/blue-panels/mcommander), a twin-panel
+  terminal file manager with panel plugins, based on GNU Midnight Commander;
+- [bluerig](https://github.com/blue-panels/bluerig), a terminal IDE, a
+  continuation of cooledit.
 
 ## How do I install these formulae?
 
 `brew install blue-panels/tap/mcommander`
+
+`brew install blue-panels/tap/bluerig`
 
 Or `brew tap blue-panels/tap` and then `brew install mcommander`.
 
