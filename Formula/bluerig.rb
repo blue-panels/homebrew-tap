@@ -11,6 +11,12 @@ class Bluerig < Formula
     strategy :github_latest
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/blue-panels/tap"
+    sha256 arm64_tahoe:  "41ec7c64d230cee4bd7f71d1475f036dedf78ac9860c3e805b738312667eacc5"
+    sha256 x86_64_linux: "bfcd7f41af15c4a5d125ffe1cef6563ed60ab733f2e630c717909437505af67a"
+  end
+
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
