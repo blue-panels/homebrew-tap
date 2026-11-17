@@ -50,7 +50,7 @@ class Mcommander < Formula
 
   def install
     # libpq is keg-only, and meson drops the build rpath on install.
-    ENV.append "LDFLAGS", "-Wl,-rpath,#{Formula["libpq"].opt_lib}" if OS.linux?
+    ENV.append "LDFLAGS", "-Wl,-rpath,#{formula_opt_lib("libpq")}" if OS.linux?
 
     # The plugin switches are explicit: auto would follow whatever happens to be on
     # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
