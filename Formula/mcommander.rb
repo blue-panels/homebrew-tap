@@ -1,8 +1,8 @@
 class Mcommander < Formula
   desc "Twin-panel terminal file manager with panel plugins"
   homepage "https://blue-panels.github.io/mcommander/"
-  url "https://github.com/blue-panels/mcommander/releases/download/v6.1.0/mcommander-6.1.0.tar.gz"
-  sha256 "32fa33be816f9bb40705068ae7b468c2ad640dead8da378a878656562d59fd88"
+  url "https://github.com/blue-panels/mcommander/releases/download/v6.2.0/mcommander-6.2.0.tar.gz"
+  sha256 "d0d3aaa11da21908550fc69deb8345d8b590371f25b2046efb7910e2ec62858a"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -17,11 +17,14 @@ class Mcommander < Formula
     sha256 x86_64_linux: "70e5f0e91418fd07f497591b2892d81e5b2ceffeefe48ad0fac3d14468987a54"
   end
 
+  depends_on "meson" => :build
+  depends_on "ninja" => :build
   depends_on "pkgconf" => :build
 
   depends_on "glib"
   depends_on "libarchive"
   depends_on "libmagic"
+  depends_on "libpq"
   depends_on "libssh2"
   depends_on "lua"
   depends_on "mongo-c-driver"
@@ -42,20 +45,23 @@ class Mcommander < Formula
   end
 
   def install
-    # Both switches are explicit: auto would follow whatever happens to be on
+    # The plugin switches are explicit: auto would follow whatever happens to be on
     # the runner. Samba is off, libsmbclient is a large tree for a rare plugin.
     args = %w[
-      --with-screen=slang
-      --enable-lua-plugin=yes
-      --enable-panel-plugin-sftp=yes
-      --enable-panel-plugin-samba=no
-      --enable-panel-plugin-mongo=yes
+      -Dscreen=slang
+      -Dlua=enabled
+      -Dpanel_plugin_sftp=enabled
+      -Dpanel_plugin_samba=disabled
+      -Dpanel_plugin_mongo=enabled
+      -Dpanel_plugin_postgres=enabled
+      -Dtests=disabled
     ]
 
-    system "./configure", *args, *std_configure_args
-    system "make", "install"
+    system "meson", "setup", "build", *args, *std_meson_args
+    system "meson", "compile", "-C", "build", "--verbose"
+    system "meson", "install", "-C", "build"
 
-    # configure writes the tools it found into the syntax file, and under
+    # meson writes the tools it found into the syntax file, and under
     # Homebrew on macOS those are the shims rather than the real binaries.
     # On Linux it finds no shims there, so nothing to replace is no error.
     inreplace pkgshare/"syntax/Syntax", Superenv.shims_path.to_s, "/usr/bin",
