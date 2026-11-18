@@ -1,8 +1,8 @@
 class Bluerig < Formula
   desc "Terminal IDE, a continuation of cooledit"
   homepage "https://github.com/blue-panels/bluerig"
-  url "https://github.com/blue-panels/bluerig/releases/download/bluerig-1.0.1/bluerig-1.0.1.tar.gz"
-  sha256 "8b3688ee271f082e0d6c9e788d12211ed40556bc5e8d1e7d96292d3e2557c301"
+  url "https://github.com/blue-panels/bluerig/releases/download/bluerig-1.0.2/bluerig-1.0.2.tar.gz"
+  sha256 "ce506d80b8a68fc41e8de228793dee61a521a0160b7546f2b1d7833281ed31ea"
   license "GPL-3.0-or-later"
 
   livecheck do
@@ -50,14 +50,10 @@ class Bluerig < Formula
     system "meson", "setup", "build", *args, *std_meson_args
     system "meson", "compile", "-C", "build", "--verbose"
     system "meson", "install", "-C", "build"
-
-    # meson writes the interpreters it found into the syntax file, and under
-    # Homebrew on macOS those are the shims rather than the real binaries.
-    inreplace pkgshare/"syntax/Syntax", Superenv.shims_path.to_s, "/usr/bin",
-              audit_result: false
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/bluerig --version")
+    assert_match version.to_s, shell_output("#{bin}/brg --version")
   end
 end
