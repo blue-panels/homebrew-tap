@@ -10,7 +10,6 @@ class Mcommander < Formula
     strategy :github_latest
   end
 
-
   depends_on "meson" => :build
   depends_on "ninja" => :build
   depends_on "pkgconf" => :build
