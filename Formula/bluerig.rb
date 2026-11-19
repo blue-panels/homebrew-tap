@@ -13,8 +13,8 @@ class Bluerig < Formula
 
   bottle do
     root_url "https://ghcr.io/v2/blue-panels/tap"
-    sha256 arm64_tahoe:  "41ec7c64d230cee4bd7f71d1475f036dedf78ac9860c3e805b738312667eacc5"
-    sha256 x86_64_linux: "bfcd7f41af15c4a5d125ffe1cef6563ed60ab733f2e630c717909437505af67a"
+    sha256 arm64_tahoe:  "7ac9f98a18a56e85945c376ee2636b164176b03764f5470ad7699b43cd969302"
+    sha256 x86_64_linux: "30ddcb859bd942a9686d851b50955ca79133fb16a2c0ccec2d1c3eec0eaeb048"
   end
 
   depends_on "meson" => :build
